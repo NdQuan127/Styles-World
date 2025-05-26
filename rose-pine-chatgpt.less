@@ -1,0 +1,403 @@
+/* ==UserStyle==
+@name ChatGPT Rose Pine
+@namespace github.com/rose-pine/userstyles/styles/chatgpt
+@homepageURL https://github.com/rose-pine/userstyles/tree/main/styles/chatgpt
+@version 2025.05.10
+@updateURL https://github.com/rose-pine/userstyles/raw/main/styles/chatgpt/rose-pine.user.less
+@supportURL https://github.com/rose-pine/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Achatgpt
+@description All natural pine, faux fur and a bit of soho vibes for the classy minimalist
+@author Rose Pine
+@license MIT
+
+@preprocessor  less
+@var select lightFlavor "Light Flavor" ["dawn:Dawn*", "main:Main", "moon:Moon"]
+@var select darkFlavor "Dark Flavor" ["dawn:Dawn", "main:Main", "moon:Moon*"]
+@var select accentColor "Accent" ["love:Love*", "gold:Gold", "rose:Rose", "pine:Pine", "foam:Foam", "iris:Iris"]
+==/UserStyle== */
+
+@-moz-document domain("chatgpt.com") {
+  :root.light {
+    #rosepine(@lightFlavor);
+  }
+
+  :root.dark {
+    #rosepine(@darkFlavor);
+  }
+
+  #rosepine(@flavor) {
+    @base: @rosepine[@@flavor][@base];
+    @surface: @rosepine[@@flavor][@surface];
+    @overlay: @rosepine[@@flavor][@overlay];
+    @muted: @rosepine[@@flavor][@muted];
+    @subtle: @rosepine[@@flavor][@subtle];
+    @text: @rosepine[@@flavor][@text];
+    @love: @rosepine[@@flavor][@love];
+    @gold: @rosepine[@@flavor][@gold];
+    @rose: @rosepine[@@flavor][@rose];
+    @pine: @rosepine[@@flavor][@pine];
+    @foam: @rosepine[@@flavor][@foam];
+    @iris: @rosepine[@@flavor][@iris];
+    @highlightLow: @rosepine[@@flavor][@highlightLow];
+    @highlightMed: @rosepine[@@flavor][@highlightMed];
+    @highlightHigh: @rosepine[@@flavor][@highlightHigh];
+    @accent: @rosepine[@@flavor][@@accentColor];
+    
+    // Map Rose Pine colors to commonly used variables for compatibility
+    @rosewater: @rose;
+    @flamingo: @love;
+    @pink: @rose;
+    @mauve: @iris;
+    @red: @love;
+    @maroon: @love;
+    @peach: @gold;
+    @yellow: @gold;
+    @green: @pine;
+    @teal: @foam;
+    @sky: @foam;
+    @sapphire: @foam;
+    @blue: @foam;
+    @lavender: @iris;
+    @subtext1: @subtle;
+    @subtext0: @muted;
+    @overlay2: @overlay;
+    @overlay1: @highlightMed;
+    @overlay0: @highlightLow;
+    @surface2: @surface;
+    @surface1: @surface;
+    @surface0: @overlay;
+    @mantle: @surface;
+    @crust: @base;
+
+    --rp-base: @base;
+    --rp-surface: @surface;
+    --rp-overlay: @overlay;
+    --rp-muted: @muted;
+    --rp-subtle: @subtle;
+    --rp-text: @text;
+    --rp-love: @love;
+    --rp-gold: @gold;
+    --rp-rose: @rose;
+    --rp-pine: @pine;
+    --rp-foam: @foam;
+    --rp-iris: @iris;
+    --rp-highlightLow: @highlightLow;
+    --rp-highlightMed: @highlightMed;
+    --rp-highlightHigh: @highlightHigh;
+
+    color-scheme: if(@flavor = dawn, light, dark);
+
+    ::selection {
+      background-color: fade(@accent, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @muted !important;
+      }
+    }
+
+    code.hljs {
+      background: none !important;
+    }
+    pre {
+      .bg-token-main-surface-secondary {
+        background-color: @overlay;
+      }
+      .bg-gray-950 {
+        background-color: @base;
+      }
+      .text-token-text-secondary {
+        color: @muted;
+      }
+    }
+
+    code[class*="language-"] {
+      color: @text;
+    }
+
+    .dark\:bg-token-main-surface-secondary:is(.dark *) {
+      background-color: @overlay;
+    }
+
+    .dark\:bg-gray-950:is(.dark *) {
+      background-color: @surface;
+    }
+
+    color: @text;
+
+    @white: if(@flavor = dawn, @base, @text);
+    @black: if(@flavor = dawn, @text, @base);
+    --white: @white;
+    --black: @black;
+
+    & when not(@flavor = dawn) {
+      --gray-50: lighten(mix(@text, @muted), 5%);
+      --gray-100: @text;
+      --gray-200: @subtle;
+      --gray-300: @overlay;
+      --gray-400: @highlightLow;
+      --gray-500: @surface;
+      --gray-600: @surface;
+      --gray-700: @overlay;
+      --gray-750: @overlay;
+      --gray-800: @base;
+      --gray-900: @surface;
+      --gray-950: @base;
+      --brand-purple: @accent;
+      --text-primary: var(--gray-100) !important;
+      --text-secondary: var(--gray-200) !important;
+      --text-tertiary: var(--gray-300) !important;
+      --text-quaternary: var(--gray-500) !important;
+      --main-surface-primary: var(--gray-800) !important;
+      --main-surface-secondary: var(--gray-700) !important;
+      --main-surface-tertiary: var(--gray-600) !important;
+      --message-surface: var(--gray-700) !important;
+      --sidebar-surface-primary: var(--gray-900);
+      --sidebar-surface-secondary: var(--gray-800);
+      --sidebar-surface-tertiary: var(--gray-700);
+      --bg-elevated-secondary: var(--gray-900);
+    }
+    & when (@flavor = dawn) {
+      --gray-50: @base;
+      --gray-100: @surface;
+      --gray-200: @base;
+      --gray-300: @overlay;
+      --gray-400: @surface;
+      --gray-500: @surface;
+      --gray-600: @highlightLow;
+      --gray-700: @highlightMed;
+      --gray-800: @muted;
+      --gray-900: @subtle;
+      --gray-950: @text;
+      --brand-purple: @accent;
+      --text-primary: var(--gray-950);
+      --text-secondary: var(--gray-600);
+      --text-tertiary: var(--gray-400);
+      --text-quaternary: var(--gray-300);
+      --main-surface-primary: var(--gray-200);
+      --main-surface-secondary: var(--gray-100);
+      --main-surface-tertiary: var(--gray-50);
+      --message-surface: var(--gray-100) !important;
+      --sidebar-surface-primary: var(--gray-100);
+      --sidebar-surface-secondary: var(--gray-200);
+      --sidebar-surface-tertiary: var(--gray-300);
+      --bg-elevated-secondary: var(--gray-100);
+    }
+
+    --border-light: fade(@text, 10%);
+    --border-medium: fade(@text, 15%);
+    --border-heavy: fade(@text, 20%);
+    --border-xheavy: fade(@text, 25%);
+    --link: @accent;
+    --link-hover: if(
+      @flavor = dawn,
+      lighten(@accent, 10%),
+      darken(@accent, 10%)
+    );
+
+    *:focus {
+      --tw-ring-offset-color: @base;
+      --tw-ring-color: @accent;
+    }
+
+    /* ChatGPT logo */
+    [style*="background-color: rgb(25, 195, 125);"] {
+      background-color: @pine !important;
+      color: @base !important;
+    }
+
+    /* Input */
+    select {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20"><path stroke="@{overlay}" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m6 8 4 4 4-4"/></svg>'
+      );
+      background-image: url("data:image/svg+xml;@{svg}");
+    }
+
+    [multiple],
+    [type="date"],
+    [type="datetime-local"],
+    [type="email"],
+    [type="month"],
+    [type="number"],
+    [type="password"],
+    [type="search"],
+    [type="tel"],
+    [type="text"],
+    [type="time"],
+    [type="url"],
+    [type="week"],
+    select,
+    textarea {
+      background-color: @base;
+      border-color: @overlay;
+    }
+
+    [type="checkbox"],
+    [type="radio"] {
+      background-color: @base;
+      border-color: @overlay;
+      color: @accent;
+    }
+
+    /* Buttons */
+    .btn-primary,
+    .btn-green {
+      background-color: @accent;
+      color: @base;
+
+      &:hover {
+        background-color: darken(@accent, 10%);
+      }
+
+      &:focus-visible {
+        --tw-ring-color: darken(@accent, 10%) !important;
+      }
+    }
+
+    .btn-danger {
+      background-color: @love;
+      color: @base;
+
+      &:hover:not(:disabled) {
+        background-color: darken(@love, 10%);
+      }
+
+      &.focus-visible,
+      &:focus-visible {
+        --tw-ring-color: darken(@love, 10%) !important;
+      }
+    }
+
+    /* Backgrounds */
+    .bg-\[\#303030\],
+    .dark\:bg-\[\#303030\] {
+      background-color: @overlay;
+      &.dark when (@flavor = dawn) {
+        background-color: @muted;
+      }
+    }
+
+    .bg-[\#0077FF],
+    .bg-\[\#3C46FF\],
+    .bg-[\#3C46FF],
+    .bg-[\#4046EC] {
+      background-color: @foam;
+    }
+
+    .bg-[\#10A37F] {
+      background-color: @pine;
+    }
+
+    .bg-[\#B161FD] {
+      background-color: @accent;
+    }
+
+    .bg-[\#F8CA27] {
+      background-color: @gold;
+    }
+
+    .bg-[\#FF5588] {
+      background-color: @love;
+    }
+
+    .bg-[\#FF6E3C] {
+      background-color: @gold;
+    }
+
+    .bg-black {
+      background-color: @black;
+    }
+
+    .bg-white {
+      background-color: @white;
+    }
+
+    /* Text colors */
+    .text-black {
+      color: @black;
+    }
+
+    .text-white {
+      color: @white;
+    }
+
+    .text-blue-600 {
+      color: @foam;
+    }
+
+    .text-brand-purple {
+      color: @accent;
+    }
+
+    .text-green-600 {
+      color: @pine;
+    }
+
+    .text-red-500 {
+      color: @love;
+    }
+
+    .text-yellow-500 {
+      color: @gold;
+    }
+
+    /* Other colors and mappings continue in similar pattern... */
+  }
+}
+
+/* Rose Pine Color Palette Definition */
+@rosepine: {
+  @main: {
+    @base: #191724;
+    @surface: #1f1d2e;
+    @overlay: #26233a;
+    @muted: #6e6a86;
+    @subtle: #908caa;
+    @text: #e0def4;
+    @love: #eb6f92;
+    @gold: #f6c177;
+    @rose: #ebbcba;
+    @pine: #31748f;
+    @foam: #9ccfd8;
+    @iris: #c4a7e7;
+    @highlightLow: #21202e;
+    @highlightMed: #403d52;
+    @highlightHigh: #524f67;
+  };
+  @moon: {
+    @base: #232136;
+    @surface: #2a273f;
+    @overlay: #393552;
+    @muted: #6e6a86;
+    @subtle: #908caa;
+    @text: #e0def4;
+    @love: #eb6f92;
+    @gold: #f6c177;
+    @rose: #ea9a97;
+    @pine: #3e8fb0;
+    @foam: #9ccfd8;
+    @iris: #c4a7e7;
+    @highlightLow: #2a283e;
+    @highlightMed: #44415a;
+    @highlightHigh: #56526e;
+  };
+  @dawn: {
+    @base: #faf4ed;
+    @surface: #fffaf3;
+    @overlay: #f2e9e1;
+    @muted: #9893a5;
+    @subtle: #797593;
+    @text: #575279;
+    @love: #b4637a;
+    @gold: #ea9d34;
+    @rose: #d7827e;
+    @pine: #286983;
+    @foam: #56949f;
+    @iris: #907aa9;
+    @highlightLow: #f4ede8;
+    @highlightMed: #dfdad9;
+    @highlightHigh: #cecacd;
+  };
+}; 
