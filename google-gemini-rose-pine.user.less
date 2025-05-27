@@ -8,19 +8,21 @@
 @author Rose Pine
 @license MIT
 
-@preprocessor less
-@var select lightFlavor "Light Flavor" ["dawn:Dawn*", "main:Main", "moon:Moon"]
+@preprocessor  less
+@var select lightFlavor "Light Flavor" ["dawn:Dawn*"]
 @var select darkFlavor "Dark Flavor" ["main:Main", "moon:Moon*"]
 @var select accentColor "Accent" ["love:Love*", "gold:Gold", "rose:Rose", "pine:Pine", "foam:Foam", "iris:Iris"]
 ==/UserStyle== */
 
 @-moz-document domain("gemini.google.com") {
-  :root .dark-theme {
-    #rosepine(@darkFlavor);
+  :root.light,
+  :root[data-theme="light"] {
+    #rosepine(@lightFlavor);
   }
 
-  :root .light-theme {
-    #rosepine(@lightFlavor);
+  :root.dark,
+  :root[data-theme="dark"] {
+    #rosepine(@darkFlavor);
   }
 
   #rosepine(@flavor) {
