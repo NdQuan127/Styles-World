@@ -1,16 +1,17 @@
 /* ==UserStyle==
 @name ChatGPT Rose Pine
-@namespace https://github.com/rose-pine
+@namespace github.com/rose-pine/userstyles/styles/chatgpt
 @homepageURL https://github.com/rose-pine/userstyles/tree/main/styles/chatgpt
 @version 2025.05.10
-@updateURL https://raw.githubusercontent.com/NdQuan127/Styles-World/refs/heads/main/rose-pine-chatgpt.user.less
+@updateURL https://github.com/rose-pine/userstyles/raw/main/styles/chatgpt/rose-pine.user.less
+@supportURL https://github.com/rose-pine/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Achatgpt
 @description All natural pine, faux fur and a bit of soho vibes for the classy minimalist
 @author Rose Pine
 @license MIT
 
 @preprocessor  less
-@var select lightFlavor "Light Flavor" ["dawn:Dawn*"]
-@var select darkFlavor "Dark Flavor" ["main:Main", "moon:Moon*"]
+@var select lightFlavor "Light Flavor" ["dawn:Dawn*", "main:Main", "moon:Moon"]
+@var select darkFlavor "Dark Flavor" ["dawn:Dawn", "main:Main", "moon:Moon*"]
 @var select accentColor "Accent" ["love:Love*", "gold:Gold", "rose:Rose", "pine:Pine", "foam:Foam", "iris:Iris"]
 ==/UserStyle== */
 
@@ -134,10 +135,10 @@
       --gray-50: lighten(mix(@text, @muted), 5%);
       --gray-100: @text;
       --gray-200: @subtle;
-      --gray-300: @overlay;
-      --gray-400: @highlightLow;
-      --gray-500: @surface;
-      --gray-600: @surface;
+      --gray-300: @muted; /* Changed from @overlay to @muted for better visibility */
+      --gray-400: @highlightMed; /* Changed from @highlightLow for better contrast */
+      --gray-500: @subtle; /* Changed from @surface to @subtle */
+      --gray-600: @muted; /* Changed from @surface to @muted */
       --gray-700: @overlay;
       --gray-750: @overlay;
       --gray-800: @base;
@@ -146,7 +147,7 @@
       --brand-purple: @accent;
       --text-primary: var(--gray-100) !important;
       --text-secondary: var(--gray-200) !important;
-      --text-tertiary: var(--gray-300) !important;
+      --text-tertiary: var(--gray-400) !important; /* Better visibility */
       --text-quaternary: var(--gray-500) !important;
       --main-surface-primary: var(--gray-800) !important;
       --main-surface-secondary: var(--gray-700) !important;
@@ -161,10 +162,10 @@
       --gray-50: @base;
       --gray-100: @surface;
       --gray-200: @base;
-      --gray-300: @overlay;
-      --gray-400: @surface;
-      --gray-500: @surface;
-      --gray-600: @highlightLow;
+      --gray-300: @muted; /* Better visibility for light mode */
+      --gray-400: @subtle; /* Better contrast */
+      --gray-500: @muted; /* Better visibility */
+      --gray-600: @text; /* Changed for better contrast */
       --gray-700: @highlightMed;
       --gray-800: @muted;
       --gray-900: @subtle;
@@ -172,8 +173,8 @@
       --brand-purple: @accent;
       --text-primary: var(--gray-950);
       --text-secondary: var(--gray-600);
-      --text-tertiary: var(--gray-400);
-      --text-quaternary: var(--gray-300);
+      --text-tertiary: var(--gray-500); /* Better visibility */
+      --text-quaternary: var(--gray-400); /* Better contrast */
       --main-surface-primary: var(--gray-200);
       --main-surface-secondary: var(--gray-100);
       --main-surface-tertiary: var(--gray-50);
@@ -313,7 +314,7 @@
       background-color: @white;
     }
 
-    /* Text colors */
+    /* Text colors - IMPROVED SECTION */
     .text-black {
       color: @black;
     }
@@ -342,7 +343,44 @@
       color: @gold;
     }
 
-    /* Other colors and mappings continue in similar pattern... */
+    /* Fix for version numbers and secondary text */
+    .text-gray-400,
+    .text-gray-500,
+    .text-gray-600 {
+      color: @subtle !important;
+    }
+
+    .text-token-text-secondary {
+      color: @subtle !important;
+    }
+
+    /* Specific fixes for ChatGPT version text */
+    [class*="text-gray"]:not(.text-gray-100):not(.text-gray-200):not(.text-gray-900):not(.text-gray-950) {
+      color: @subtle !important;
+    }
+
+    /* Header and navigation text improvements */
+    nav [class*="text-"], 
+    header [class*="text-"],
+    .sidebar [class*="text-"] {
+      &:not(.text-white):not(.text-black):not([class*="primary"]):not([class*="brand"]) {
+        color: @subtle !important;
+      }
+    }
+
+    /* Ensure version numbers and similar secondary text are visible */
+    span[class*="text-"]:not(.text-white):not(.text-black),
+    small[class*="text-"]:not(.text-white):not(.text-black) {
+      color: @subtle !important;
+    }
+
+    /* Additional fix for muted text that might be too light */
+    .text-muted,
+    .text-secondary,
+    [class*="muted"],
+    [class*="secondary"] {
+      color: @subtle !important;
+    }
   }
 }
 
@@ -399,4 +437,4 @@
     @highlightMed: #dfdad9;
     @highlightHigh: #cecacd;
   };
-}; 
+};
