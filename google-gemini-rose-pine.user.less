@@ -9,19 +9,20 @@
 @license MIT
 
 @preprocessor  less
-@var select lightFlavor "Light Flavor" ["dawn:Dawn*"]
+@var select lightFlavor "Light Flavor" ["dawn:Dawn*", "main:Main", "moon:Moon"]
 @var select darkFlavor "Dark Flavor" ["main:Main", "moon:Moon*"]
 @var select accentColor "Accent" ["love:Love*", "gold:Gold", "rose:Rose", "pine:Pine", "foam:Foam", "iris:Iris"]
 ==/UserStyle== */
 
 @-moz-document domain("gemini.google.com") {
-  :root.light,
-  :root[data-theme="light"] {
+  :root .light-theme,
+  [data-theme="light"] {
     #rosepine(@lightFlavor);
   }
 
-  :root.dark,
-  :root[data-theme="dark"] {
+  :root .dark-theme,
+  [data-theme="dark"],
+  :root:not(.light-theme) {
     #rosepine(@darkFlavor);
   }
 
@@ -42,6 +43,22 @@
     @highlightMed: @rosepine[@@flavor][@highlightMed];
     @highlightHigh: @rosepine[@@flavor][@highlightHigh];
     @accent: @rosepine[@@flavor][@@accentColor];
+
+    --rp-base: @base;
+    --rp-surface: @surface;
+    --rp-overlay: @overlay;
+    --rp-muted: @muted;
+    --rp-subtle: @subtle;
+    --rp-text: @text;
+    --rp-love: @love;
+    --rp-gold: @gold;
+    --rp-rose: @rose;
+    --rp-pine: @pine;
+    --rp-foam: @foam;
+    --rp-iris: @iris;
+    --rp-highlightLow: @highlightLow;
+    --rp-highlightMed: @highlightMed;
+    --rp-highlightHigh: @highlightHigh;
     
     // Map Rose Pine colors to Catppuccin-style variables for compatibility
     @rosewater: @rose;
@@ -68,22 +85,6 @@
     @surface0: @overlay;
     @mantle: @surface;
     @crust: @base;
-
-    --rp-base: @base;
-    --rp-surface: @surface;
-    --rp-overlay: @overlay;
-    --rp-muted: @muted;
-    --rp-subtle: @subtle;
-    --rp-text: @text;
-    --rp-love: @love;
-    --rp-gold: @gold;
-    --rp-rose: @rose;
-    --rp-pine: @pine;
-    --rp-foam: @foam;
-    --rp-iris: @iris;
-    --rp-highlightLow: @highlightLow;
-    --rp-highlightMed: @highlightMed;
-    --rp-highlightHigh: @highlightHigh;
 
     color-scheme: if(@flavor = dawn, light, dark);
 
